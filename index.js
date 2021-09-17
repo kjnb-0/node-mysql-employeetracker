@@ -27,14 +27,24 @@ function mainQuestions() {
       type: "list",
       message: "What would you like to view?",
       name: "category",
-      choices: ["All Departments","All Roles","All Employees"]
+      choices: ["All Departments","All Roles","All Employees","None - I want to add"]
     }
   ])
   .then(async (data) => {
     const { category } = data;
     if (category === "All Departments") {
       viewAllDepartments();
-      return
+      return;
+    } else if (category === "All Roles") {
+      viewAllRoles();
+      return;
+    } else if (category === "All Employees") {
+      viewAllEmployees();
+      return;
+    } else {
+      // none - i want to add
+      //ask what we want to add,
+      //run functions for adding to each table 
     }
   })
 }
@@ -47,7 +57,26 @@ db.query('SELECT * FROM department', function (err, results) {
   //to go back to main menu
   mainQuestions();
 })
+}
 
+function viewAllRoles() {
+    // Query database
+db.query('SELECT * FROM role', function (err, results) {
+  if(err) console.log(err)
+  console.table(results)
+  //to go back to main menu
+  mainQuestions();
+})
+}
+
+function viewAllEmployees(){
+    // Query database
+db.query('SELECT * FROM employee', function (err, results) {
+  if(err) console.log(err)
+  console.table(results)
+  //to go back to main menu
+  mainQuestions();
+})
 }
 
 //separate functions for view all depts, roles and employees then call them in the if statement

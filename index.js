@@ -44,6 +44,9 @@ function mainQuestions() {
     } else if (category === "Add Department") {
       addDepartment();
       return;
+    } else if (category === "Add Role") {
+      addRole();
+      return;
     }
   })
 }
@@ -86,6 +89,36 @@ function addDepartment() {
         name : answers.deptName
        });
         console.log("Added department")
+        mainQuestions();
+      });
+}
+
+function addRole() {
+  inquirer
+  .prompt([
+    {
+      type: 'input',
+      name: 'roleTitle',
+      message: 'Please enter the role title'
+  },
+  {
+    type: 'input',
+      name: 'roleSalary',
+      message: 'Please enter the role salary'
+  },
+  {
+    type: 'input',
+      name: 'roleId',
+      message: 'Please enter the department ID for this role'
+  },
+])
+  .then( answers => {
+       db.query(`INSERT INTO role SET ?`, {
+        title : answers.roleTitle,
+        salary : answers.roleSalary,
+        department_id : answers.roleId
+       });
+        console.log("Added role")
         mainQuestions();
       });
 }

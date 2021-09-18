@@ -2,6 +2,7 @@
 
 ## Video walkthrough 
 
+https://drive.google.com/file/d/1Qc--G5TPV5II7gdySbeqUDwYpBLwYC9v/view
 
 ## User Story
 

@@ -19,45 +19,48 @@ const db = mysql.createConnection(
 // view all departments, roles, employees
 
 function mainQuestions() {
-  inquirer
-    .prompt([
-      {
-        type: "list",
-        message: "What would you like to do?",
-        name: "category",
-        choices: [
-          "View All Departments",
-          "View All Roles",
-          "View All Employees",
-          "Add Department",
-          "Add Role",
-          "Add Employee",
-          "Update Employee",
-        ],
-      },
-    ])
-    .then(async (data) => {
-      const { category } = data;
-      if (category === "View All Departments") {
-        viewAllDepartments();
-        return;
-      } else if (category === "View All Roles") {
-        viewAllRoles();
-        return;
-      } else if (category === "View All Employees") {
-        viewAllEmployees();
-        return;
-      } else if (category === "Add Department") {
-        addDepartment();
-        return;
-      } else if (category === "Add Role") {
-        addRole();
-        return;
-      } else if (category === "Add Employee") {
-        addEmployee();
-        return;
-      }
-    });
+  var quit = false;
+
+  while (!quit) {
+    inquirer
+      .prompt([
+        {
+          type: "list",
+          message: "What would you like to do?",
+          name: "category",
+          choices: [
+            "View All Departments",
+            "View All Roles",
+            "View All Employees",
+            "Add Department",
+            "Add Role",
+            "Add Employee",
+          ],
+        },
+      ])
+      .then(async (data) => {
+        const { category } = data;
+        if (category === "View All Departments") {
+          viewAllDepartments();
+          return;
+        } else if (category === "View All Roles") {
+          viewAllRoles();
+          return;
+        } else if (category === "View All Employees") {
+          viewAllEmployees();
+          return;
+        } else if (category === "Add Department") {
+          addDepartment();
+          return;
+        } else if (category === "Add Role") {
+          addRole();
+          return;
+        } else {
+          addEmployee();
+          return;
+        }
+      });
+  }
 }
 
 function viewAllDepartments() {
@@ -161,7 +164,7 @@ function addEmployee() {
         first_name: answers.firstname,
         last_name: answers.lastname,
         role_id: answers.roleId,
-        manager_id: answers.managerId
+        manager_id: answers.managerId,
       });
       console.log("Added employee");
       mainQuestions();

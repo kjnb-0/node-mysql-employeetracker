@@ -19,9 +19,6 @@ const db = mysql.createConnection(
 // view all departments, roles, employees
 
 function mainQuestions() {
-  var quit = false;
-
-  while (!quit) {
     inquirer
       .prompt([
         {
@@ -61,7 +58,6 @@ function mainQuestions() {
         }
       });
   }
-}
 
 function viewAllDepartments() {
   // Query database
